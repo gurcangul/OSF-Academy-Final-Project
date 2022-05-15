@@ -1,16 +1,20 @@
-import Products from '../models/Product.js';
+import Categories from '../models/Categories.js';
 
-const searchProductsById = async (req, res) => {
+const getCategoryById = async (req, res) => {
    const { id } = req.params;
-   const result = await Products.searchProductsById(id);
-   return result;
+   const result = await Categories.getCategoryById(id);
+   return res.json(result);
 }
  
-const searchProductsByCategory= async(req, res) => {
-   const { category } = req.params;
-   const result = await Products.searchProductsByCategory(category);
-   return result;
+const getCategoryByParentId= async(req, res) => {
+   const { id } = req.params;
+   const result = await Categories.getCategoryByParentId(id);
+   return res.json(result);
  }
- 
-export { searchProductsById, searchProductsByCategory };
+const getAllCategories= async(req, res) => {
+  const result = await Categories.getAllCategories();
+  return res.json(result);
+ } 
+
+export { getCategoryById, getCategoryByParentId, getAllCategories };
  

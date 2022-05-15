@@ -14,6 +14,7 @@ const signUp = async(name, email, password)=>{
         const data = await response.json();
         return data;
     } catch (err) {
+        console.log(err);
     } 
 }
 
@@ -31,6 +32,7 @@ const signIn = async(email, password)=>{
         const data = await response.json();
         return data;
     } catch (err) {
+        console.log(err);
     }
 }
   

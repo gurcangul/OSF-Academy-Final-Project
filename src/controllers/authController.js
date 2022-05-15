@@ -1,4 +1,5 @@
 import Auth from '../models/Auth.js';
+//import {signUp, signIn} from '../models/Auth.js';
 
   const signUp = async (req, res) => {
     const { name, email, password } = req.body;
