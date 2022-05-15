@@ -1,10 +1,11 @@
 import express from 'express'
+import dotenv from 'dotenv';
+import authRouter from './routes/authRoutes.js'
 
 const app = express()
+app.use(express.json());
 
-app.get('/', (req, res) => {
-  res.send('Welcome!')
-})
+app.use(authRouter);
 
 const port = process.env.PORT || 5000
 
