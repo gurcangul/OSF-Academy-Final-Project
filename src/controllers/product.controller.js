@@ -6,7 +6,7 @@ const searchProductsById = async (req, res) => {
    return result;
 }
  
-const searchProductsByCategory= async(req, res) => {
+const searchProductsByCategory = async(req, res) => {
    const { category } = req.params;
    const result = await Products.searchProductsByCategory(category);
    return result;
