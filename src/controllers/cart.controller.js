@@ -18,8 +18,8 @@ const removeItemFromCart= async(req, res) => {
  }
   
 const ​changeQuantityOfItem = async(req, res) => {
-    const result = await Cart.​changeQuantityOfItem();
-    return res.json(result);
+   const result = await Cart.​changeQuantityOfItem();
+   return res.json(result);
 }  
 
 export { getCart, addItemToCart, removeItemFromCart,​changeQuantityOfItem };
