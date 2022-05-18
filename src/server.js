@@ -13,11 +13,13 @@ const app = express();
 dotenv.config();
 app.use(express.json());
 
-app.set('views', __dirname + '/views')
+app.set('views', __dirname + '/views');
+app.use(express.static("public"));
+
 app.set('view engine', 'ejs');
 
-app.use(authRouter)
-app.use(indexRouter)
+app.use(authRouter);
+app.use(indexRouter);
 
 
 
