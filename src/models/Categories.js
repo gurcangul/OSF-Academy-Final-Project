@@ -1,4 +1,6 @@
 
+import fetch from "node-fetch";
+
 const getCategoryById = async(id)=>{
     try {
         const response = await fetch(`${process.env.API_URL}/categories/${id}?secretKey=${process.env.API_KEY}`);

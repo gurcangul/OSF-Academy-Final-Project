@@ -1,0 +1,63 @@
+<%- include('partials/header') %>
+
+<div class="container">
+    <div class="container mt-5">
+        <div class="col-5 mx-auto ">
+            <form id="auth">
+            <div class="form-outline mb-4">
+                <label class="form-label" for="form2Example1">Email address</label>
+                <input type="email" id="email" class="form-control" />
+            </div>
+        
+            <div class="form-outline mb-4">
+                <label class="form-label" for="form2Example2">Password</label>
+                <input type="password" id="password" class="form-control" />
+            </div>
+        
+            <div class="text-center">
+                <button type="button" class="btn btn-primary btn-block" id="signinBtn">Sign In</button>
+                <br>   <br>  
+                <p>Not a member? <a href="/signup">Register</a></p>
+            </div>
+        </form>
+    </div>
+</div>    </div>
+<script>
+    $("#signinBtn").click(async function () {
+    const result = await signIn();
+    if (result.user) {
+      const user = {
+        name: result.user.name,
+        email: result.user.email,
+      }
+      const token = result.token.replace(/\"/g, "");
+      sessionStorage.setItem("user", JSON.stringify(user));
+      sessionStorage.setItem("token", token);
+      window.location.href = "/";
+    } else {
+      alert("result.error");
+    }
+  });
+
+  async function signIn() {
+    const email = $("#email").val();
+    const password = $("#password").val();
+    const result = await fetch("/auth/signin", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        email: email,
+        password: password,
+      }),
+    }).then((response) => {
+      return response.json();
+    });
+    return result;
+  }
+  
+</script>
+
+ <div style="position: fixed;
+ width: 100%;bottom: 0;"><%- include('partials/footer') %>
+ </div>
+

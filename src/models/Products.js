@@ -1,4 +1,6 @@
 
+import fetch from "node-fetch";
+
 const searchProductsById = async(id)=>{
     try {
         const response = await fetch(`${process.env.API_URL}/products/product_search?id=${id}&secretKey=${process.env.API_KEY}`);

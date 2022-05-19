@@ -1,3 +1,4 @@
+import fetch from "node-fetch";
 
 const signUp = async(name, email, password)=>{
     try {
@@ -29,7 +30,7 @@ const signIn = async(email, password)=>{
                 password: password,
             }),
         });
-        const data = await response.json();
+        const data = await response.json();        
         return data;
     } catch (err) {
         console.log(err);

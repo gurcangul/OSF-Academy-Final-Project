@@ -1,3 +1,5 @@
+import fetch from "node-fetch";
+
 const getOrder = async(id)=>{
     try {
         const response = await fetch(`${process.env.API_URL}/cart/${id}?secretKey=${process.env.API_KEY}`);
