@@ -4,21 +4,23 @@
     <div class="container mt-5">
         <div class="col-5 mx-auto ">
             <form>
-            <div class="form-outline mb-4">
-                <label class="form-label" for="form2Example1">Email address</label>
-                <input type="email" id="form2Example1" class="form-control" />
-            </div>
-        
-            <div class="form-outline mb-4">
-                <label class="form-label" for="form2Example2">Password</label>
-                <input type="password" id="form2Example2" class="form-control" />
-            </div>
-        
-            <div class="text-center">
-                <button type="button" class="btn btn-primary btn-block" id="signupBtn">Sign Up</button>
-                <br>   <br>  
-                <p>Not a member? <a href="/signup">Register</a></p>
-            </div>
+                <div class="form-outline mb-4">
+                    <label class="form-label" for="name">Name</label>
+                    <input type="text" id="name" class="form-control"  required/>
+                </div>               
+                <div class="form-outline mb-4">
+                    <label class="form-label" for="email" >Email address</label>
+                    <input type="email" id="email" class="form-control" required/>
+                </div>      
+                <div class="form-outline mb-4">
+                    <label class="form-label" for="password">Password</label>
+                    <input type="password" id="password" class="form-control" required/>
+                </div>
+                <div class="text-center">
+                    <button type="button" class="btn btn-primary btn-block" id="signupBtn">Sign Up</button>
+                    <br>   <br>  
+                    <p>Not a member? <a href="/signup">Register</a></p>
+                </div>
         </form>
     </div>
 </div>
@@ -27,3 +29,42 @@
 <div style="position: fixed;
 width: 100%;bottom: 0;"><%- include('partials/footer') %>
 </div>
+
+<script>
+    $("#signupBtn").click(async function () {
+        const result = await signup();
+        if (result.user) {
+            const user = {
+            name: result.user.name,
+            email: result.user.email,
+            }
+            const token = result.token.replace(/\"/g, "");
+            sessionStorage.setItem("user", JSON.stringify(user));
+            sessionStorage.setItem("token", token);
+            window.location.href = "/";
+        } else {
+            alert(result.error);
+        }
+    });
+
+
+
+    async function signup() {
+        const name = $("#name").val();
+        const email = $("#email").val();
+        const password = $("#password").val();
+        const result = await fetch("/auth/signup", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+            name: name,
+            email: email,
+            password: password,
+            }),
+        }).then((response) => {
+            return response.json();
+    });
+  return result;
+}   
+    
+</script>

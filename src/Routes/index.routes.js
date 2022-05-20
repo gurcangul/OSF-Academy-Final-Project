@@ -13,5 +13,7 @@ router.get("/signin", (req, res) => {
 router.get("/signup", (req, res) => {
   res.render("../views/signup.ejs");
 });
-
+router.get("/all_categories", (req, res) => {
+  res.render("../views/categories.ejs");
+});
   export default router; 

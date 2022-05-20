@@ -26,14 +26,13 @@
           <li class="nav-item">
             <a class="nav-link active" href="/" style="color:#000000; font-size: 45px;">OSF DIGITAL</a>
           </li>
-          <li style=" width: 50% ;margin-right: 10px; margin-left: 15px;">
+          <li style=" width: 30% ;margin-right: 10px; margin-left: 15px;" id="searchLi">
             <form class="form-inline">
               <input class="form-control" type="search" placeholder="What are you looking for..." aria-label="Search" >           
         </li>
         <li>                  
           <button class="btn btn-outline-success my-2 my-sm-0" type="submit" style="margin-right: 10px;">Search</button>
         </li>
-
         <li>                  
           <a class="btn btn-primary  my-2 my-sm-0 " type="submit" style="margin-right: 10px;" href="/signin">Sing In</a>
         </li>
@@ -41,8 +40,12 @@
           <li>                  
             <a class="btn btn-primary  my-2 my-sm-0 " type="submit" style="margin-right: 10px;" href="/signup">Sing Up</a>
           </li>
+
+          <li id="userNameli">                
+            <a  class="btn btn-dark" style="margin-right: 10px;"  id="userName"></a>
+          </li>
           <li>                
-          <a type="button" class="btn btn-warning" style="margin-right: 10px;">Cart</a>
+          <a  class="btn btn-warning" style="margin-right: 10px;">Cart</a>
         </li>   
       </form>
         </ul>     
@@ -84,6 +87,14 @@
         </div>
         </nav>
       </div>
-
-
+      
+      <script>
+        const user = JSON.parse(sessionStorage.getItem("user"));
+        if(user == null){
+          document.getElementById("searchLi").style.width = "50%";
+          $("#userNameli").hide();
+        }else
+        document.getElementById("searchLi").style.width = "30%";
+        $("#userName").text(user.name);
+      </script>
       

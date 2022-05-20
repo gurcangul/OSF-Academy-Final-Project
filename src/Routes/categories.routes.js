@@ -3,8 +3,8 @@ import { getCategoryById, getCategoryByParentId, getAllCategories } from '../con
 
 const router = express.Router()
 
-router.get("/category/:id", getCategoryById);
-router.get("/category/parent/:id", getCategoryByParentId);
-router.get("/all_categories", getAllCategories);
+router.get("/all_categories", (req, res) => {
+    res.render("../views/categories.ejs");
+  });
 
 export default router;

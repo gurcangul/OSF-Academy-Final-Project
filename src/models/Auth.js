@@ -12,7 +12,14 @@ const signUp = async(name, email, password)=>{
                 password: password,
             }),
         });
+        
         const data = await response.json();
+        res.cookie('token', response.data.token, { httpOnly: true, secure: true, maxAge: 3600000 });
+        res.cookie('user', {
+            name: response.data.user.name,
+            email: response.data.user.email,
+            createdAt: response.data.user.createdAt,
+        }, { httpOnly: true, secure: true, maxAge: 3600000 });
         return data;
     } catch (err) {
         console.log(err);
@@ -36,5 +43,6 @@ const signIn = async(email, password)=>{
         console.log(err);
     }
 }
-  
+
+
 export default { signUp, signIn };

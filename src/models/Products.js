@@ -20,5 +20,13 @@ const searchProductsByCategory = async(category)=>{
         console.log(err);
     }
 }
-  
-export default { searchProductsById, searchProductsByCategory };
+const searchProducts=async(key)=> {
+    try {
+        const response = await fetch(`${process.env.API_URL}/products/product_search?${key}&secretKey=${process.env.API_KEY}`);
+        const data = await response.json();
+        return data;
+    }catch(err) {
+        console.log(err);
+    }
+}
+export default { searchProductsById, searchProductsByCategory, searchProducts };
