@@ -5,8 +5,9 @@ import {fileURLToPath} from 'url';
 
 import authRouter from './routes/auth.routes.js'
 import indexRouter from './routes/index.routes.js'
-/*import categoriesRouter from './routes/categories.routes.js'
 import cartRouter from './routes/cart.routes.js'
+
+/*import categoriesRouter from './routes/categories.routes.js'
 import ordersRouter from './routes/order.routes.js'
 import productsRouter from './routes/product.routes.js'
 import wishlistRouter from './routes/wishlist.routes.js'
@@ -26,9 +27,10 @@ app.set('view engine', 'ejs');
 
 app.use(authRouter);
 app.use(indexRouter);
+app.use(cartRouter);
+
 /*
 app.use(categoriesRouter);
-app.use(cartRouter);
 app.use(ordersRouter);
 app.use(productsRouter);
 app.use(wishlistRouter);

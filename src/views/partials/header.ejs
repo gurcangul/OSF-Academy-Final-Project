@@ -33,26 +33,33 @@
         <li>                  
           <button class="btn btn-outline-success my-2 my-sm-0" type="submit" style="margin-right: 10px;">Search</button>
         </li>
-        <li>                  
-          <a class="btn btn-primary  my-2 my-sm-0 " type="submit" style="margin-right: 10px;" href="/signin">Sing In</a>
+        <li id="signinBtnLi">                  
+          <a class="btn btn-primary  my-2 my-sm-0 " type="submit" style="margin-right: 10px;" href="/signin" >Sing In</a>
         </li>
         <li>   
-          <li>                  
-            <a class="btn btn-primary  my-2 my-sm-0 " type="submit" style="margin-right: 10px;" href="/signup">Sing Up</a>
+          <li id="signoutBtnLi">                  
+            <a class="btn btn-primary  my-2 my-sm-0 " type="submit" style="margin-right: 10px;" href="/signup" >Sing Up</a>
           </li>
 
-          <li id="userNameli">                
-            <a  class="btn btn-dark" style="margin-right: 10px;"  id="userName"></a>
+
+          <li  id="userNameli">
+            <a class="nav-link dropdown-toggle btn btn-dark" id="navbarDropdown " role="button" data-toggle="dropdown" aria-haspopup="true" style="margin-right: 10px;" >  <b id="userName" class="text-white"> </b>
+              </a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <a class="dropdown-item" href="/profile">My Profile</a>
+              <a class="dropdown-item" href="/" id="logoutBtn">Log Out</a>
+            </div>
           </li>
+
           <li>                
-          <a  class="btn btn-warning" style="margin-right: 10px;">Cart</a>
+          <a  class="btn btn-warning" style="margin-right: 10px;" id="userCart">Cart</a>
         </li>   
       </form>
         </ul>     
          </div>       
     </nav>
 
-        
+
       <!--- carrousel -->
       <div id="container-collumn">
         <nav class="navbar navbar-expand-lg navbar-warning bg-warning">
@@ -93,8 +100,23 @@
         if(user == null){
           document.getElementById("searchLi").style.width = "50%";
           $("#userNameli").hide();
-        }else
-        document.getElementById("searchLi").style.width = "30%";
-        $("#userName").text(user.name);
+        }else{
+          document.getElementById("searchLi").style.width = "55%";
+          $("#userName").text(user.name);
+          $("#signinBtnLi").hide();
+          $("#signoutBtnLi").hide();
+          
+          $("#logoutBtn").click(function () {
+           sessionStorage.removeItem("token");
+            sessionStorage.removeItem("user");
+            window.location.href = "/";
+        });
+      }
+
+      $("#userCart").click(function(){
+        const token = sessionStorage.getItem("token")
+        window.location.href = `/cart/${token}`;
+      });
+
       </script>
       

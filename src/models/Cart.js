@@ -1,40 +1,65 @@
-const getCart = async(id)=>{
-    try {
-        const response = await GET(`${process.env.API_URL}/cart/${id}?secretKey=${process.env.API_KEY}`);
-        const data = await response.json();
-        return data;
-    }catch(err) {
-        console.log(err);
-    } 
-}
+import fetch from "node-fetch";
 
-const addItemToCart = async(id)=>{
+const getCart = async(token)=>{
+    token = token.replace(/\"/g, "");
     try {
-        const response = await POST(`${process.env.API_URL}/cart/addItem/${id}?secretKey=${process.env.API_KEY}`);
+      const response = await fetch(`${process.env.API_URL}/cart?secretKey=${process.env.API_KEY}`,
+        {
+            method: "GET",
+            headers: {"Content-Type": "application/json", Authorization: `Bearer ${token}`,},
+        }
+      );
+      const data = await response.json();
+      return data;
+    } catch (err) {
+        console.log(err);
+    }
+  }
+
+const addItemToCart = async(productId, variantId, quantity, token)=>{
+    try {
+        const response = await fetch(`${process.env.API_URL}/cart/addItem`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+          body: JSON.stringify({
+            secretKey: process.env.API_KEY,
+            productId: productId,
+            variantId: variantId,
+            quantity: quantity,
+          }),
+        });
         const data = await response.json();
         return data;
-    }catch(err) {
+      } catch(err) {
         console.log(err);
     }
 }
 
-const removeItemFromCart = async ()=> {
+const removeItemFromCart = async (productId, variantId, token) => {
     try {
-        const response = await DELETE(`${process.env.API_URL}/cart/removeItem/${id}?secretKey=${process.env.API_KEY}`);
-        const data = await response.json();
-        return data;
-    }catch(err) {
+        await fetch(`${process.env.API_URL}/cart/removeItem`, {
+          method: "DELETE",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+          body: JSON.stringify({
+            secretKey: process.env.API_KEY,
+            productId: productId,
+            variantId: variantId,
+          }),
+        });
+        return {
+          status: "Item removed from the cart",
+        };
+      }catch(err) {
         console.log(err);
     }
 } 
 
-const ​changeQuantityOfItem = async ()=> {
-    try {
-        const response = await POST(`${process.env.API_URL}/cart/changeItemQuantity/${id}?secretKey=${process.env.API_KEY}`);
-        const data = await response.json();
-        return data;
-    }catch(err) {
-        console.log(err);
-    }
-} 
-export default { getCart, addItemToCart, removeItemFromCart, ​changeQuantityOfItem }
+
+
+export default { getCart, addItemToCart, removeItemFromCart }
